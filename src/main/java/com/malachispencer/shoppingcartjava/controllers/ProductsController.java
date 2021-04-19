@@ -1,4 +1,4 @@
-package com.malachispencer.shoppingcartjava;
+package com.malachispencer.shoppingcartjava.controllers;
 
 import com.malachispencer.shoppingcartjava.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
