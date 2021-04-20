@@ -1,6 +1,7 @@
 package com.malachispencer.shoppingcartjava.models;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity(name = "products")
 public class Product {
@@ -10,12 +11,12 @@ public class Product {
     private Integer productID;
 
     private String name;
-    private Float price;
+    private BigDecimal price;
 
     @Column(name = "in_stock")
     private Integer inStock;
 
-    public Product() {
+    protected Product() {
 
     }
 
@@ -35,13 +36,11 @@ public class Product {
         this.name = name;
     }
 
-    public Float getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
-        this.price = price;
-    }
+    public void setPrice(BigDecimal price) { this.price = price; }
 
     public Integer getInStock() {
         return inStock;
