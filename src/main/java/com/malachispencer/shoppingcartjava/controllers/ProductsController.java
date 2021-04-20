@@ -1,5 +1,6 @@
 package com.malachispencer.shoppingcartjava.controllers;
 
+import com.malachispencer.shoppingcartjava.models.CartItem;
 import com.malachispencer.shoppingcartjava.models.Product;
 import com.malachispencer.shoppingcartjava.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,9 @@ public class ProductsController {
             Sort.by(Sort.Direction.ASC, "productID")
         );
 
+        CartItem cartItem = new CartItem();
         model.addAttribute("products", products);
+        model.addAttribute("cartItem", cartItem);
         return "products";
     }
 }
