@@ -9,12 +9,18 @@
 
     <tr th:each="product: ${products}">
         <div>
-            <td th:text="${product.name}" />
+            <span th:text="${product.name}"></span><br/>
+            <span th:text="${product.price}"></span><br/>
         </div>
-        <div>
-            <td th:text="${product.price}" />
-        </div>
-        <br>
+        <form action="#" th:action="@{/cart}" method="post" th:object="${cartItem}">
+            <input type="hidden" th:value="${product.productID}" name="productID">
+            <select th:field="*{quantity}">
+                <option th:each="i : ${#numbers.sequence(1, product.inStock)}" th:value="${i}" th:text="${i}">
+                </option>
+            </select>
+            <input type="submit" value="Add To Cart">
+        </form>
+        <br/>
     </tr>
 </body>
 </html>
