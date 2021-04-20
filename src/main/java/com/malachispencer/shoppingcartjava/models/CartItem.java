@@ -9,10 +9,7 @@ public class CartItem {
     @Column(name = "cart_id", updatable = false, nullable = false)
     private Integer cartID;
 
-    @OneToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
-
+    private Integer productID;
     private Integer quantity;
 
     public CartItem() {
@@ -27,12 +24,12 @@ public class CartItem {
         this.cartID = cartID;
     }
 
-    public Product getProduct() {
-        return product;
+    public Integer getProductID() {
+        return productID;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProductID(Integer productID) {
+        this.productID = productID;
     }
 
     public Integer getQuantity() {
@@ -41,5 +38,12 @@ public class CartItem {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "Cart ID: " + getCartID() + "\n"
+            + "Product ID: " + getProductID() + "\n"
+            + "Quantity: " + getQuantity() + "\n";
     }
 }
