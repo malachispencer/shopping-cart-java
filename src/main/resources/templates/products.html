@@ -8,8 +8,13 @@
     <h1>Products</h1>
 
     <tr th:each="product: ${products}">
-        <td th:text="${product.name}" />
-        <td th:text="${product.price}" />
+        <div>
+            <td th:text="${product.name}" />
+        </div>
+        <div>
+            <td th:text="${product.price}" />
+        </div>
+        <br>
     </tr>
 </body>
 </html>
