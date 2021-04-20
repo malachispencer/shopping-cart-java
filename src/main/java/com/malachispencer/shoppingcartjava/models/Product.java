@@ -49,4 +49,12 @@ public class Product {
     public void setInStock(Integer inStock) {
         this.inStock = inStock;
     }
+
+    @Override
+    public String toString() {
+        return "Product ID: " + getProductID() + "\n"
+            + "Name: " + getName() + "\n"
+            + "Price: " + getPrice() + "\n"
+            + "In Stock: " + getInStock() + "\n";
+    }
 }
