@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class CartItemsController {
@@ -26,6 +27,9 @@ public class CartItemsController {
     @GetMapping("/cart")
     public String index(Model model) {
         Long itemsInCart = cartItemRepository.count();
+        List<Map> cart = cartItemRepository.getItems();
+
+        model.addAttribute("cartItems", cart);
         model.addAttribute("itemsInCart", itemsInCart);
         return "cart";
     }
