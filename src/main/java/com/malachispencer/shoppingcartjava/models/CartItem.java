@@ -9,7 +9,9 @@ public class CartItem {
     @Column(name = "cart_id", updatable = false, nullable = false)
     private Integer cartID;
 
+    @Column(name = "product_id")
     private Integer productID;
+
     private Integer quantity;
 
     public CartItem() {
