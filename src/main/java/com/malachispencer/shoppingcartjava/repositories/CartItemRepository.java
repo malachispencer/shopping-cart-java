@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
 
-public interface CartItemRepository extends JpaRepository<CartItem, Integer>, CartItemCustomRepository {
+public interface CartItemRepository extends JpaRepository<CartItem, Integer> {
     boolean existsCartItemByProductID(Integer productID);
 
     CartItem findOneByProductID(Integer productID);

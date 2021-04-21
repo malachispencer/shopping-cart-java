@@ -7,6 +7,7 @@ import com.malachispencer.shoppingcartjava.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,16 +29,21 @@ public class CartItemsController {
     }
 
     @PostMapping("/cart")
-    public String add(@ModelAttribute("cartItem") CartItem cartItem, Model model) {
+    public String addItem(@ModelAttribute("cartItem") CartItem cartItem) {
         Integer productID = cartItem.getProductID();
         Integer addingToCart = cartItem.getQuantity();
-        Integer currentlyInStock = productRepository.getOne(productID).getInStock();
-        boolean exists = cartItemRepository.existsCartItemByProductID(productID);
+        Integer currentlyInStock = productRepository
+            .getOne(productID)
+            .getInStock();
+        boolean exists = cartItemRepository
+            .existsCartItemByProductID(productID);
 
         if (exists == false) {
             cartItemRepository.saveAndFlush(cartItem);
         } else {
-            Integer currentQuantity = cartItemRepository.findOneByProductID(productID).getQuantity();
+            Integer currentQuantity = cartItemRepository.
+                findOneByProductID(productID).
+                getQuantity();
             Integer newQuantity = currentQuantity + addingToCart;
             cartItemRepository.updateCartItemQuantity(newQuantity, productID);
         }
@@ -45,8 +51,6 @@ public class CartItemsController {
         Integer newInStock = currentlyInStock - addingToCart;
         productRepository.decrementStock(newInStock, productID);
 
-        List<Product> products = productRepository.findAll();
-        model.addAttribute("products", products);
-        return "products";
+        return "redirect:/";
     }
 }
