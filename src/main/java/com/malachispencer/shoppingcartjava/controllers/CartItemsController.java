@@ -29,7 +29,21 @@ public class CartItemsController {
 
     @PostMapping("/cart")
     public String add(@ModelAttribute("cartItem") CartItem cartItem, Model model) {
-        System.out.println(cartItem.toString());
+        Integer productID = cartItem.getProductID();
+        Integer addingToCart = cartItem.getQuantity();
+        Integer currentlyInStock = productRepository.getOne(productID).getInStock();
+        boolean exists = cartItemRepository.existsCartItemByProductID(productID);
+
+        if (exists == false) {
+            cartItemRepository.saveAndFlush(cartItem);
+        } else {
+            Integer currentQuantity = cartItemRepository.findOneByProductID(productID).getQuantity();
+            Integer newQuantity = currentQuantity + addingToCart;
+            cartItemRepository.updateCartItemQuantity(newQuantity, productID);
+        }
+
+        Integer newInStock = currentlyInStock - addingToCart;
+        productRepository.decrementStock(newInStock, productID);
 
         List<Product> products = productRepository.findAll();
         model.addAttribute("products", products);
