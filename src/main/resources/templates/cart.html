@@ -17,6 +17,13 @@
         in your cart.
     </h4>
 
-
+    <tr th:each="item: ${cartItems}">
+        <div>
+            Name: <span th:text="${item.name}"></span><br>
+            Price: £<span th:text="${item.price}"></span><br>
+            Quantity: <span th:text="${item.quantity}"></span><br>
+            Subtotal: £<span th:text="${item.price * item.quantity}"></span><br>
+        </div><br>
+    </tr>
 </body>
 </html>
