@@ -10,7 +10,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
 
-public interface CartItemRepository extends JpaRepository<CartItem, Integer> {
+public interface CartItemRepository extends JpaRepository<CartItem, Integer>, CartItemCustomRepository {
     boolean existsCartItemByProductID(Integer productID);
 
     CartItem findOneByProductID(Integer productID);

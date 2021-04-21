@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +30,10 @@ public class CartItemsController {
         Long itemsInCart = cartItemRepository.count();
         List<Map> cart = cartItemRepository.getItems();
 
+        BigDecimal cartTotal = cartItemRepository.cartTotal();
+
         model.addAttribute("cartItems", cart);
+        model.addAttribute("cartTotal", cartTotal);
         model.addAttribute("itemsInCart", itemsInCart);
         return "cart";
     }
