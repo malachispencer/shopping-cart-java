@@ -7,6 +7,8 @@
 <body>
     <h1>Products</h1>
 
+    <a href="/cart" style="text-decoration:none">Cart (<span th:text="${itemsInCart}"></span>)</a><br/><br/>
+
     <tr th:each="product: ${products}">
         <div>
             <span th:text="${product.name}"></span><br/>

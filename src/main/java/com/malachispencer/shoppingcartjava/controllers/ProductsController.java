@@ -2,6 +2,7 @@ package com.malachispencer.shoppingcartjava.controllers;
 
 import com.malachispencer.shoppingcartjava.models.CartItem;
 import com.malachispencer.shoppingcartjava.models.Product;
+import com.malachispencer.shoppingcartjava.repositories.CartItemRepository;
 import com.malachispencer.shoppingcartjava.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -17,15 +18,21 @@ public class ProductsController {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private CartItemRepository cartItemRepository;
+
     @GetMapping("/")
     public String products(Model model) {
         List<Product> products = productRepository.findAll(
             Sort.by(Sort.Direction.ASC, "productID")
         );
 
+        Long itemsInCart = cartItemRepository.count();
+
         CartItem cartItem = new CartItem();
         model.addAttribute("products", products);
         model.addAttribute("cartItem", cartItem);
+        model.addAttribute("itemsInCart", itemsInCart);
         return "products";
     }
 }

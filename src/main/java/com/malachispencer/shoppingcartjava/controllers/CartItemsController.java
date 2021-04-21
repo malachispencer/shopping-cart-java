@@ -25,6 +25,8 @@ public class CartItemsController {
 
     @GetMapping("/cart")
     public String index(Model model) {
+        Long itemsInCart = cartItemRepository.count();
+        model.addAttribute("itemsInCart", itemsInCart);
         return "cart";
     }
 

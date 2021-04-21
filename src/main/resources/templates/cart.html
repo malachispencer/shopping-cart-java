@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Cart</title>
 </head>
 <body>
     <h1>Cart</h1>
+
+    <a href="/" style="text-decoration:none">Back to Products</a><br/>
+
+    <h4>
+        You have
+        <span th:text="${itemsInCart}"></span>
+        <span th:if="${itemsInCart == 1}">item</span>
+        <span th:unless="${itemsInCart == 1}">items</span>
+        in your cart.
+    </h4>
+
+
 </body>
 </html>
