@@ -43,7 +43,7 @@ public class CartItemsController {
     }
 
     @PostMapping("/cart")
-    public String addItem(@ModelAttribute("cartItem") CartItem cartItem) {
+    public String add(@ModelAttribute("cartItem") CartItem cartItem) {
         Integer productID = cartItem.getProductID();
         Integer addingToCart = cartItem.getQuantity();
         Integer currentlyInStock = productRepository
@@ -59,7 +59,7 @@ public class CartItemsController {
                 findOneByProductID(productID).
                 getQuantity();
             Integer newQuantity = currentQuantity + addingToCart;
-            cartItemRepository.updateCartItemQuantity(newQuantity, productID);
+            cartItemRepository.add(newQuantity, productID);
         }
 
         Integer newInStock = currentlyInStock - addingToCart;
@@ -72,10 +72,15 @@ public class CartItemsController {
         value = "/cart/{id}",
         consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
     )
-    public String update(@PathVariable("id") String cartID, @RequestParam Map cartData) {
-        cartData.remove("_method");
-        cartData.put("cartID", cartID);
-        System.out.println(cartData);
+    public String update(@PathVariable("id") String cartID, @RequestParam Map itemData) {
+        if (Integer.parseInt((String)itemData.get("newQty")) == 0) {
+            cartItemRepository.deleteById(Integer.parseInt(cartID));
+        }
+
+        itemData.remove("_method");
+        itemData.put("cartID", cartID);
+        cartItemRepository.updateQty(itemData);
+        productRepository.updateStock(itemData);
 
         return "redirect:/cart";
     }
