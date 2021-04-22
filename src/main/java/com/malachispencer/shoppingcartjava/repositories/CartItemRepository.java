@@ -28,6 +28,7 @@ public interface CartItemRepository extends JpaRepository<CartItem, Integer>, Ca
 
     @Query(
         "SELECT new map (" +
+            "c.cartID as cartID, " +
             "p.productID as productID, " +
             "p.name as name, p.price as price, " +
             "c.quantity as quantity, " +
