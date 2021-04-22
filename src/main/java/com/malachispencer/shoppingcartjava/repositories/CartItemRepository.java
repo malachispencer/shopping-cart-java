@@ -21,7 +21,7 @@ public interface CartItemRepository extends JpaRepository<CartItem, Integer>, Ca
         "SET c.quantity = :newQuantity " +
         "WHERE productID = :productID"
     )
-    void updateCartItemQuantity(
+    void add(
         @Param("newQuantity") Integer newQuantity,
         @Param("productID") Integer productID
     );
@@ -35,7 +35,8 @@ public interface CartItemRepository extends JpaRepository<CartItem, Integer>, Ca
             "p.inStock as inStock" +
             ") " +
             "FROM products p INNER JOIN cart c " +
-            "ON p.productID = c.productID"
+            "ON p.productID = c.productID " +
+            "ORDER BY c.cartID DESC"
     )
     List<Map> getItems();
 }
