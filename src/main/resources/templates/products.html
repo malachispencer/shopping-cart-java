@@ -14,15 +14,15 @@
             <span th:text="${product.name}"></span><br/>
             <span th:text="${product.price}"></span><br/>
         </div>
-        <form action="#" th:action="@{/cart}" method="post" th:object="${cartItem}">
+        <span th:if="${product.inStock > 0}"><form action="#" th:action="@{/cart}" method="post" th:object="${cartItem}">
             <input type="hidden" th:value="${product.productID}" name="productID">
             <select th:field="*{quantity}">
                 <option th:each="i : ${#numbers.sequence(1, product.inStock)}" th:value="${i}" th:text="${i}">
                 </option>
             </select>
             <input type="submit" value="Add To Cart">
-        </form>
-        <br/>
+        </form></span>
+        <span th:unless="${product.inStock > 0}"><div>Currently out of stock</div></span><br>
     </tr>
 </body>
 </html>
