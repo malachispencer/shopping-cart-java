@@ -17,13 +17,33 @@
         in your cart.
     </h4>
 
+    <script>
+        let qtyDropDown;
+        let cartItemQtyOption;
+    </script>
+
     <tr th:each="item: ${cartItems}">
         <div>
             Name: <span th:text="${item.name}"></span><br>
             Price: £<span th:text="${item.price}"></span><br>
             Quantity: <span th:text="${item.quantity}"></span><br>
             Subtotal: £<span th:text="${item.price * item.quantity}"></span><br>
-        </div><br>
+        </div>
+        <form action="#" th:action="@{/cart/} + ${item.cartID}" th:method="patch" th:object="${map}">
+            <input type="hidden" name="productID" th:value="${item.productID}">
+            <input type="hidden" name="currentQuantity" th:value="${item.quantity}">
+            <select name="newQuantity" th:id="qty-drop-down- + ${item.cartID}">
+                <option th:each="i : ${#numbers.sequence(0, item.inStock + item.quantity)}" th:value="${i}" th:text="${i}">
+                </option>
+            </select>
+            <input type="submit" value="Edit Qty">
+        </form><br>
+
+        <script>
+            qtyDropDown = document.getElementById('qty-drop-down-[[${item.cartID}]]');
+            qtyDropDownOption = qtyDropDown[String([[${item.quantity}]])];
+            qtyDropDownOption.selected = true;
+        </script>
     </tr>
 
     <h4>Total: £<span th:text="${cartTotal}"></span></h4>
