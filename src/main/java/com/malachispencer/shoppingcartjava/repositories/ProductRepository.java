@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
 
-public interface ProductRepository extends JpaRepository<Product, Integer> {
+public interface ProductRepository extends JpaRepository<Product, Integer>, ProductCustomRepository {
     @Transactional
     @Modifying
     @Query("UPDATE products p SET p.inStock = :newInStock WHERE p.productID = :productID")
