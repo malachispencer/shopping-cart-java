@@ -3,6 +3,7 @@ package com.malachispencer.shoppingcartjava.repositories;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -34,5 +35,25 @@ public class CartItemCustomRepositoryImpl implements CartItemCustomRepository{
         }
 
         return total;
+    }
+
+    @Override
+    @Transactional
+    public void updateQty(Map itemData) {
+        Integer newQty = Integer.parseInt(
+            (String)itemData.get("newQty")
+        );
+
+        Integer cartID = Integer.parseInt(
+            (String)itemData.get("cartID")
+        );
+
+        em.createQuery(
+            "UPDATE cart c " +
+                "SET c.quantity = :newQty " +
+                "WHERE c.cartID = :cartID"
+        ).setParameter("newQty", newQty)
+            .setParameter("cartID", cartID)
+            .executeUpdate();
     }
 }
