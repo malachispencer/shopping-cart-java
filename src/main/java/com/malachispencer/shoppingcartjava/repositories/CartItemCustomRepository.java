@@ -7,5 +7,5 @@ import java.util.Map;
 public interface CartItemCustomRepository {
     BigDecimal cartTotal();
 
-    void updateQty(Map itemData);
+    void updateQty(Map<String, Object> itemData);
 }

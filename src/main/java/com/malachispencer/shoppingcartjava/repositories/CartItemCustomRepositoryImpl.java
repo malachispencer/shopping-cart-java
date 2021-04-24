@@ -39,7 +39,7 @@ public class CartItemCustomRepositoryImpl implements CartItemCustomRepository{
 
     @Override
     @Transactional
-    public void updateQty(Map itemData) {
+    public void updateQty(Map<String, Object> itemData) {
         Integer newQty = Integer.parseInt(
             (String)itemData.get("newQty")
         );
