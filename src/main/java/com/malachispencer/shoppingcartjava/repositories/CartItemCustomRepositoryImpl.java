@@ -44,9 +44,7 @@ public class CartItemCustomRepositoryImpl implements CartItemCustomRepository{
             (String)itemData.get("newQty")
         );
 
-        Integer cartID = Integer.parseInt(
-            (String)itemData.get("cartID")
-        );
+        Integer cartID = (Integer)itemData.get("cartID");
 
         em.createQuery(
             "UPDATE cart c " +

@@ -33,9 +33,9 @@ public class CartItemsController {
         Long itemsInCart = cartItemRepository.count();
         List<Map> cart = cartItemRepository.getItems();
         BigDecimal cartTotal = cartItemRepository.cartTotal();
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> itemData = new HashMap<>();
 
-        model.addAttribute("map", map);
+        model.addAttribute("itemData", itemData);
         model.addAttribute("cartItems", cart);
         model.addAttribute("cartTotal", cartTotal);
         model.addAttribute("itemsInCart", itemsInCart);
@@ -72,12 +72,10 @@ public class CartItemsController {
         value = "/cart/{id}",
         consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
     )
-    public String update(@PathVariable("id") String cartID, @RequestParam Map<String, Object> itemData) {
+    public String update(@PathVariable("id") Integer cartID, @RequestParam Map<String, Object> itemData) {
         if (Integer.parseInt((String)itemData.get("newQty")) == 0) {
-            cartItemRepository.deleteById(Integer.parseInt(cartID));
+            cartItemRepository.deleteById(cartID);
         }
-
-        System.out.println(itemData);
 
         itemData.remove("_method");
         itemData.put("cartID", cartID);

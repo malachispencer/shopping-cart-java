@@ -29,7 +29,7 @@
             Quantity: <span th:text="${item.quantity}"></span><br>
             Subtotal: £<span th:text="${item.price * item.quantity}"></span><br>
         </div>
-        <form action="#" th:action="@{/cart/} + ${item.cartID}" th:method="patch" th:object="${map}">
+        <form action="#" th:action="@{/cart/} + ${item.cartID}" th:method="patch" th:object="${itemData}">
             <input type="hidden" name="productID" th:value="${item.productID}">
             <input type="hidden" name="inStock" th:value="${item.inStock}">
             <input type="hidden" name="currentQty" th:value="${item.quantity}">
